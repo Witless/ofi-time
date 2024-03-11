@@ -10,3 +10,4 @@
 - [ ] Code documentation 
 - [ ] Project documentation 
 - [ ] Visual feedback on errors
+- [ ] Improve UX/UI
