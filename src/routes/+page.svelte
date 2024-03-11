@@ -19,7 +19,7 @@
 							},
 							body: JSON.stringify({ idToken })
 						}).then((response) => {
-							if (response.status !== 403) {
+							if (response.status === 200) {
 								user.set(res.user);
 								getFirestoreData();
 							} else {
