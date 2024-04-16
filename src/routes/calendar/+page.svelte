@@ -46,12 +46,18 @@
 							<div class="flex flex-col">
 								{#each data[day.split(' ')[0]] as time}
 									<th>
-										<div class="btn btn-lg btn-success md:w-87 text-white" style="background-color: #7ac143; border-color: #7ac143">
+										<div class="btn btn-lg btn-success md:w-87 text-white w-48" style="background-color: #7ac143; border-color: #7ac143">
 											<p>{time.initial.format('LT')} to {time.ending.format('LT')}</p>
 										</div>
 									</th>
 								{/each}
 							</div>
+							{:else}
+							<th>
+								<div class="btn btn-lg btn-success md:w-87 text-white w-48" style="background-color: rgba(122,193,67,0.74); border-color: rgba(122,193,67,0.74)">
+									<p>🚫 Office closed</p>
+								</div>
+							</th>
 						{/if}
 					</tr>
 				{/each}
