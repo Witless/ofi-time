@@ -87,6 +87,21 @@
 	};
 
 	const addSlot = () => {
+		if(moment(startDate).toDate() > moment(endDate).toDate()){
+			startDate = null;
+			endDate = null;
+			toast.error(`Start goes first, then the End 😉`, {
+				position: 'bottom-right'
+			})
+			return -1;
+		}else if(moment(startDate).toDate() < Date.now() || moment(endDate).toDate() < Date.now()){
+			startDate = null;
+			endDate = null;
+			toast.error(`Plan your opening times starting from today, not earlier ⏰`, {
+				position: 'bottom-right'
+			})
+			return -2;
+		}
 		const ticketsCollection = collection(firestore, 'tickets');
 		const timesCollection = collection(firestore, 'times');
 		addDoc(timesCollection, {
@@ -110,21 +125,6 @@
 		});
 	};
 
-	$:{
-		if (moment(startDate).toDate() < Date.now() || moment(endDate).toDate() < Date.now()) {
-			startDate = null;
-			endDate = null;
-			toast.error(`Plan your opening times starting from today, not earlier ⏰`, {
-				position: 'bottom-right'
-			})
-		} else if (endDate && moment(startDate).toDate() > moment(endDate).toDate()) {
-			startDate = null;
-			toast.error(`Start goes first, then the End 😉`, {
-				position: 'bottom-right'
-			})
-		}
-	}
-
 	onMount(() => {
 		getFirestoreData();
 	});
@@ -140,7 +140,9 @@
 			End Date
 			<input type="datetime-local" bind:value={endDate} required />
 		</label>
-		<button class="btn btn-primary" on:click={addSlot}>Add slot</button>
+		<label class="flex flex-col items-center">
+			<button class="btn btn-primary max-[600px]:w-44" on:click={addSlot}>Add slot</button>
+		</label>
 	</div>
 </div>
 
