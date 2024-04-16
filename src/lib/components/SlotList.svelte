@@ -14,6 +14,7 @@
 	import { firestore } from '$lib/firebaseClient.js';
 	import { onMount } from 'svelte';
 	import moment from 'moment';
+	import toast from 'svelte-french-toast';
 
 	export let timesData = [];
 	let startDate = '';
@@ -109,13 +110,28 @@
 		});
 	};
 
+	$:{
+		if (moment(startDate).toDate() < Date.now() || moment(endDate).toDate() < Date.now()) {
+			startDate = null;
+			endDate = null;
+			toast.error(`Plan your opening times starting from today, not earlier ⏰`, {
+				position: 'top-right'
+			})
+		} else if (endDate && moment(startDate).toDate() > moment(endDate).toDate()) {
+			startDate = null;
+			toast.error(`Start goes first, then the End 😉`, {
+				position: 'top-right'
+			})
+		}
+	}
+
 	onMount(() => {
 		getFirestoreData();
 	});
 </script>
 
 <div class="flex justify-center items-center mt-2">
-	<div class="flex space-x-4 bg-transparent border border-white rounded-full p-4">
+	<div class="flex space-x-4 bg-transparent border border-white rounded-3xl p-4">
 		<label class="flex flex-col items-center">
 			Start Date
 			<input type="datetime-local" bind:value={startDate} required />

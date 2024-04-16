@@ -1,9 +1,10 @@
 <script>
 	import { auth, firestore } from '$lib/firebaseClient.js';
-	import { signInWithPopup, getIdToken, GoogleAuthProvider } from 'firebase/auth';
+	import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 	import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 	import { user } from '../stores/userStore.js';
 	import SlotList from '$lib/components/SlotList.svelte';
+	import { Toaster } from 'svelte-french-toast';
 
 	let timesData = [];
 
@@ -11,22 +12,8 @@
 		signInWithPopup(auth, new GoogleAuthProvider())
 			.then((res) => {
 				if (res.user) {
-					getIdToken(res.user).then((idToken) => {
-						fetch('/api/validateToken', {
-							method: 'POST',
-							headers: {
-								'Content-Type': 'application/json'
-							},
-							body: JSON.stringify({ idToken })
-						}).then((response) => {
-							if (response.status === 200) {
-								user.set(res.user);
-								getFirestoreData();
-							} else {
-								signOut();
-							}
-						});
-					});
+						user.set(res.user);
+						getFirestoreData();
 				}
 			})
 			.catch((error) => {
@@ -55,10 +42,7 @@
 		});
 	};
 
-	const signOut = () => {
-		auth.signOut();
-		user.set(null);
-	};
+
 </script>
 
 <div>
@@ -91,6 +75,7 @@
 			</div>
 		</div>
 	{:else}
+		<Toaster />
 		<SlotList {timesData} />
 	{/if}
 </div>

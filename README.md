@@ -9,5 +9,6 @@
 - [x] Allow only certain domains
 - [ ] Code documentation 
 - [ ] Project documentation 
-- [ ] Visual feedback on errors
+- [x] Visual feedback on errors
 - [ ] Improve UX/UI
+- [ ] Adapt to mobile 
