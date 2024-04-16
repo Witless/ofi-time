@@ -45,7 +45,7 @@
 
 </script>
 
-<div>
+<div class="max-[600px]:overflow-x-clip">
 	{#if !$user}
 		<div class="flex items-center justify-center min-h-screen">
 			<div class="px-6 sm:px-0 max-w-sm">

@@ -30,23 +30,23 @@
 </script>
 
 <div class="flex flex-col items-center p-4">
-	<button class="btn btn-wide font-bold btn-info text-white" style="background-color: #00aeef; border-color: #00aeef"> OFFICE OPEN HOURS</button>
+	<button class="btn btn-wide font-bold btn-info text-white mb-5" style="background-color: #00aeef; border-color: #00aeef"> OFFICE OPEN HOURS</button>
 
 	<div class="overflow-x-auto">
 		<table class="table">
 			<tbody>
 				{#each thisWeek as day}
-					<tr>
+					<tr class="max-[600px]:border-b max-[600px]:border-gray-700">
 						<th>
-							<div class="btn btn-lg btn-primary w-56 text-white" style="background-color: #f47b20; border-color: #f47b20">
+							<div class="btn btn-lg btn-primary w-32 md:w-56 text-white" style="background-color: #f47b20; border-color: #f47b20">
 								{day}
 							</div>
 						</th>
 						{#if data[day.split(' ')[0]].length}
-							<div class="flex space-x-3.5">
+							<div class="flex flex-col">
 								{#each data[day.split(' ')[0]] as time}
 									<th>
-										<div class="btn btn-lg btn-success w-87 text-white" style="background-color: #7ac143; border-color: #7ac143">
+										<div class="btn btn-lg btn-success md:w-87 text-white" style="background-color: #7ac143; border-color: #7ac143">
 											<p>{time.initial.format('LT')} to {time.ending.format('LT')}</p>
 										</div>
 									</th>

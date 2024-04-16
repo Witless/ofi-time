@@ -115,12 +115,12 @@
 			startDate = null;
 			endDate = null;
 			toast.error(`Plan your opening times starting from today, not earlier ⏰`, {
-				position: 'top-right'
+				position: 'bottom-right'
 			})
 		} else if (endDate && moment(startDate).toDate() > moment(endDate).toDate()) {
 			startDate = null;
 			toast.error(`Start goes first, then the End 😉`, {
-				position: 'top-right'
+				position: 'bottom-right'
 			})
 		}
 	}
@@ -130,8 +130,8 @@
 	});
 </script>
 
-<div class="flex justify-center items-center mt-2">
-	<div class="flex space-x-4 bg-transparent border border-white rounded-3xl p-4">
+<div class="flex justify-center md:items-center mt-2 flex-col">
+	<div class="flex md:space-x-4 bg-transparent border border-white rounded-3xl p-4 flex-col md:flex-row space-y-3 md:space-y-0">
 		<label class="flex flex-col items-center">
 			Start Date
 			<input type="datetime-local" bind:value={startDate} required />
@@ -149,7 +149,7 @@
 		<div class="overflow-x-auto">
 			<table class="table">
 				<thead>
-					<tr>
+					<tr class="max-[600px]:border-b max-[600px]:border-gray-700">
 						<th>From</th>
 						<th>To</th>
 						<th>Attendees</th>
@@ -158,13 +158,16 @@
 				</thead>
 				<tbody>
 					{#each timesData as item, index}
-						<tr>
+						<tr class="max-[600px]:border-b max-[600px]:border-gray-700">
 							<td>{new Date(item.initial.seconds * 1000).toLocaleString()}</td>
 							<td>{new Date(item.ending.seconds * 1000).toLocaleString()}</td>
 							<td>
-								{#each item.attendees as item}
-									<div class="badge badge-secondary mb-1">{item}</div>
-									<br />
+								{#each item.attendees as item, index}
+									{#if index!==0}
+										<div class="md:hidden">━━━━━━</div>
+									{/if}
+									<div class="md:badge md:badge-secondary md:mb-1">{item}</div>
+									<br class="max-[600px]:hidden">
 								{/each}
 							</td>
 							<td>
@@ -177,7 +180,7 @@
 								{#if item.creator_id == $user.uid}
 									<button
 										on:click={() => deleteCurrentSlot(index)}
-										class="px-4 py-2 mt-4 rounded-xl bg-blue-500 text-white hover:bg-blue-400"
+										class="px-4 py-2 mt-4 rounded-xl bg-red-500 text-white hover:bg-red-400"
 									>
 										Delete slot
 									</button>

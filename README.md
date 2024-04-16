@@ -11,4 +11,4 @@
 - [ ] Project documentation 
 - [x] Visual feedback on errors
 - [ ] Improve UX/UI
-- [ ] Adapt to mobile 
+- [x] Adapt to mobile 
