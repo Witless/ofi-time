@@ -22,7 +22,7 @@
 
 	const getFirestoreData = async () => {
 		const timesCollection = collection(firestore, 'times');
-		const timesQuery = query(timesCollection, orderBy('initial'));
+		const timesQuery = query(timesCollection, orderBy('initial', 'desc'));
 		const orderedTimes = await getDocs(timesQuery);
 		const ticketsCollection = collection(firestore, 'tickets');
 		const ticketsSnapshot = await getDocs(ticketsCollection);
@@ -114,7 +114,7 @@
 				uuid: $user.uid,
 				time_id: docReference.id
 			});
-			timesData.push({
+			timesData.unshift({
 				initial: Timestamp.fromDate(moment(startDate).toDate()),
 				ending: Timestamp.fromDate(moment(endDate).toDate()),
 				creator_id: $user.uid,
@@ -175,14 +175,14 @@
 							<td>
 								<button
 									on:click={() => toggleCurrentUserInSlot(index)}
-									class="px-4 py-2 mt-4 rounded-xl bg-blue-500 text-white hover:bg-blue-400"
+									class="px-4 py-2  rounded-xl bg-blue-500 text-white hover:bg-blue-400"
 								>
 									{!item.attendees.includes($user.displayName) ? 'Add to slot' : 'Remove from slot'}
 								</button>
-								{#if item.creator_id == $user.uid}
+								{#if item.creator_id === $user.uid}
 									<button
 										on:click={() => deleteCurrentSlot(index)}
-										class="px-4 py-2 mt-4 rounded-xl bg-red-500 text-white hover:bg-red-400"
+										class="px-4 py-2 rounded-xl bg-red-500 text-white hover:bg-red-400 max-[600px]:mt-2"
 									>
 										Delete slot
 									</button>
