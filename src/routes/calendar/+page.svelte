@@ -1,7 +1,14 @@
 <script>
 
 	import moment from 'moment';
+	import { onMount } from 'svelte';
 	export let data;
+
+	let inIFrame = false;
+
+	onMount(() => {
+		inIFrame = window.self !== window.top;
+	});
 
 	const getCurrentWeekDatesFormatted = () => {
 		const startOfWeek =  moment().startOf('isoweek');
@@ -18,14 +25,14 @@
 	const thisWeek = getCurrentWeekDatesFormatted();
 </script>
 
-<div class="flex flex-col items-center p-4">
+<div class="flex flex-col items-center p-4 ${inIFrame ? 'bg-white' : ''}">
 	<button class="btn btn-wide font-bold btn-info text-white mb-5" style="background-color: #00aeef; border-color: #00aeef"> OFFICE OPEN HOURS</button>
 
 	<div class="overflow-x-auto">
 		<table class="table">
 			<tbody>
 				{#each thisWeek as day}
-					<tr class="max-[600px]:border-b max-[600px]:border-gray-700">
+					<tr class="max-[600px]:border-b max-[600px]:border-gray-700 ${inIFrame ? 'border-b border-gray-700' : ''}">
 						<th>
 							<div class="btn btn-lg btn-primary w-32 md:w-56 text-white" style="background-color: #f47b20; border-color: #f47b20">
 								{day}
