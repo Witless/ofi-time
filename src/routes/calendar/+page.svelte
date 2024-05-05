@@ -1,30 +1,19 @@
 <script>
+
+	import moment from 'moment';
 	export let data;
 
 	const getCurrentWeekDatesFormatted = () => {
-		const daysOfWeek = [
-			'Sunday',
-			'Monday',
-			'Tuesday',
-			'Wednesday',
-			'Thursday',
-			'Friday',
-			'Saturday'
-		];
-		const currentDate = new Date();
-		const weekStart =
-			currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1);
-
+		const startOfWeek =  moment().startOf('isoweek');
 		let dates = [];
-		for (let i = 0; i < 7; i++) {
-			let day = new Date(currentDate.setDate(weekStart + i));
-			dates.push(
-				`${daysOfWeek[day.getDay()]} ${day.getDate().toString().padStart(2, '0')}/${(day.getMonth() + 1).toString().padStart(2, '0')}`
-			);
+
+		for(let i = 0; i < 7; i++){
+			dates.push(moment(startOfWeek).add(i, 'days').format("dddd DD[/]MM"))
 		}
 
 		return dates;
-	};
+
+	}
 
 	const thisWeek = getCurrentWeekDatesFormatted();
 </script>
