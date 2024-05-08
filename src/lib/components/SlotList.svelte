@@ -28,9 +28,7 @@
 		const ticketsCollection = collection(firestore, 'tickets');
 		const ticketsSnapshot = await getDocs(ticketsCollection);
 		const ticketsData = ticketsSnapshot.docs.map((doc) => doc.data());
-		console.log("docs below")
 		timesData = orderedTimes.docs.map((doc) => {
-			console.log("doc", doc)
 			const data = doc.data();
 			let attendees = [];
 			ticketsData.forEach((document) => {
