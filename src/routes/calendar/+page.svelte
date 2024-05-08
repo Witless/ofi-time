@@ -32,7 +32,7 @@
 		<table class="table">
 			<tbody>
 				{#each thisWeek as day}
-					<tr class="max-[600px]:border-b max-[600px]:border-gray-700 ${inIFrame ? 'border-b border-gray-700' : ''}">
+					<tr class="max-[600px]:border-b max-[600px]:border-gray-700 ${inIFrame ? 'border-b border-gray-700' : ''}" style="border-color: #f47b20">
 						<th>
 							<div class="btn btn-lg btn-primary w-32 md:w-56 text-white" style="background-color: #f47b20; border-color: #f47b20">
 								{day}
@@ -43,7 +43,7 @@
 								{#each data[day.split(' ')[0]] as time}
 									<th>
 										<div class="btn btn-lg btn-success md:w-87 text-white w-48" style="background-color: #7ac143; border-color: #7ac143">
-											<p>{time.initial.format('LT')} to {time.ending.format('LT')}</p>
+											<p>{time.initial.format('HH[:]mm')} to {time.ending.format('HH[:]mm')}</p>
 										</div>
 									</th>
 								{/each}

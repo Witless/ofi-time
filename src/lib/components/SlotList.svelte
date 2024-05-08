@@ -4,6 +4,7 @@
 		addDoc,
 		collection,
 		deleteDoc,
+		updateDoc,
 		doc,
 		getDocs,
 		orderBy,
@@ -22,12 +23,14 @@
 
 	const getFirestoreData = async () => {
 		const timesCollection = collection(firestore, 'times');
-		const timesQuery = query(timesCollection, orderBy('initial', 'desc'));
+		const timesQuery = query(timesCollection, where('visible', '==', true), orderBy('initial', 'desc'));
 		const orderedTimes = await getDocs(timesQuery);
 		const ticketsCollection = collection(firestore, 'tickets');
 		const ticketsSnapshot = await getDocs(ticketsCollection);
 		const ticketsData = ticketsSnapshot.docs.map((doc) => doc.data());
+		console.log("docs below")
 		timesData = orderedTimes.docs.map((doc) => {
+			console.log("doc", doc)
 			const data = doc.data();
 			let attendees = [];
 			ticketsData.forEach((document) => {
@@ -73,15 +76,9 @@
 	const deleteCurrentSlot = (index) => {
 		const slotId = timesData[index].id;
 		const docRef = doc(firestore, 'times', slotId);
-		deleteDoc(docRef);
-		const ticketsCollection = collection(firestore, 'tickets');
-		const queryTicketsSameTime = query(ticketsCollection, where('time_id', '==', slotId));
-		getDocs(queryTicketsSameTime).then((docSnapshot) => {
-			docSnapshot.docs.forEach((document) => {
-				const docRef = doc(firestore, 'tickets', document.id);
-				deleteDoc(docRef);
-			});
-		});
+		updateDoc(docRef, {
+			visible: false
+		})
 		timesData.splice(index, 1);
 		timesData = [...timesData];
 	};
@@ -107,7 +104,8 @@
 		addDoc(timesCollection, {
 			initial: Timestamp.fromDate(moment(startDate).toDate()),
 			ending: Timestamp.fromDate(moment(endDate).toDate()),
-			creator_id: $user.uid
+			creator_id: $user.uid,
+			visible: true
 		}).then((docReference) => {
 			addDoc(ticketsCollection, {
 				name: $user.displayName,

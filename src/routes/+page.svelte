@@ -1,7 +1,7 @@
 <script>
 	import { auth, firestore } from '$lib/firebaseClient.js';
 	import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-	import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+	import { collection, getDocs, query, orderBy, where } from 'firebase/firestore';
 	import { user } from '../stores/userStore.js';
 	import SlotList from '$lib/components/SlotList.svelte';
 	import { Toaster } from 'svelte-french-toast';
@@ -23,7 +23,7 @@
 
 	const getFirestoreData = async () => {
 		const timesCollection = collection(firestore, 'times');
-		const timesQuery = query(timesCollection, orderBy('initial'));
+		const timesQuery = query(timesCollection, where('visible', '==', true), orderBy('initial', 'desc'));
 		const orderedTimes = await getDocs(timesQuery);
 		const ticketsCollection = collection(firestore, 'tickets');
 		const ticketsSnapshot = await getDocs(ticketsCollection);
