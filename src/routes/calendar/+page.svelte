@@ -8,6 +8,10 @@
 
 	onMount(() => {
 		inIFrame = window.self !== window.top;
+		/**
+		 * Refreshes the data variable otherwise it will be duplicated...*N by Sveltekit calling the load() function
+		 */
+		data = null
 	});
 
 	const getCurrentWeekDatesFormatted = () => {
@@ -59,5 +63,10 @@
 				{/each}
 			</tbody>
 		</table>
+	</div>
+	<div class="btn btn-lg btn-warning md:w-87 text-white w-58 mt-12" >
+		<a href="/calendar/next-week">
+			👁 See next week
+		</a>
 	</div>
 </div>
