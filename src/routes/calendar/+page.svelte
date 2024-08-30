@@ -64,9 +64,11 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="btn btn-lg btn-warning md:w-87 text-white w-58 mt-12" >
-		<a href="/calendar/next-week">
+	<a href="/calendar/next-week">
+		<div class="btn btn-lg btn-warning md:w-87 text-white w-58 mt-12" >
+
 			👁 See next week
-		</a>
-	</div>
+
+		</div>
+	</a>
 </div>
