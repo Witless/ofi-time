@@ -1,11 +1,16 @@
 <script>
 
+  import {
+    PRIVACY_POLICY_ES,
+    PRIVACY_POLICY_EN
+  } from '$env/static/public';
+
   function navigateToEnglish() {
-    window.location = "https://drive.google.com/file/d/1UmV7wDNNj3vVWtj85MYJSx9BKBj571Jg/view?usp=sharing"
+    window.location = PRIVACY_POLICY_EN
   }
 
   function navigateToSpanish() {
-    window.location = "https://drive.google.com/file/d/1us6Z7E7vQThGA44wpVK04g-OcAZuDJwg/view"
+    window.location = PRIVACY_POLICY_ES
   }
 </script>
 
