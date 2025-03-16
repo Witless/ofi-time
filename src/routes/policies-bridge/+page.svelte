@@ -1,16 +1,16 @@
 <script>
 
   import {
-    PRIVACY_POLICY_ES,
-    PRIVACY_POLICY_EN
+    PUBLIC_PRIVACY_POLICY_ES,
+    PUBLIC_PRIVACY_POLICY_EN
   } from '$env/static/public';
 
   function navigateToEnglish() {
-    window.location = PRIVACY_POLICY_EN
+    window.location = PUBLIC_PRIVACY_POLICY_EN
   }
 
   function navigateToSpanish() {
-    window.location = PRIVACY_POLICY_ES
+    window.location = PUBLIC_PRIVACY_POLICY_ES
   }
 </script>
 
